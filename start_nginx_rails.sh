@@ -9,13 +9,15 @@ usage() {
     Configures and starts a rails app behind nginx and passenger
 
     OPTIONS:
-    -p Precompile Assets (false by default)
+      -l=PATH Path to Symlink config files (empty and ignored by default)
+      -p Precompile Assets (false by default)
     "
 }
 
+CONFIG_PATH=
 PRECOMPILE=false
 
-while getopts "hp" OPTION
+while getopts "hpl:" OPTION
 do
   case $OPTION in
     h)
@@ -25,6 +27,9 @@ do
     p)
       PRECOMPILE=true
       ;;
+    l)
+      CONFIG_PATH=$OPTARG
+      ;;
     ?)
       usage
       exit 1
@@ -32,7 +37,10 @@ do
   esac
 done
 
-ln -sf /opt/rails_config/*.yml /rails/config/
+if [[ -z $CONFIG_APTH ]];
+then
+  ln -sf "$CONFIG_PATH*.yml" /rails/config/
+fi
 
 if [ "$PRECOMPILE" = true ];
 then

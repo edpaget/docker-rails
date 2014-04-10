@@ -16,4 +16,7 @@ RUN bundle install --without development test
 ADD ./ /rails
 ADD docker/site.conf /etc/nginx/sites-enabled/site.conf
 
+ENV RACK_ENV production
+ENV RAILS_ENV production
+
 VOLUME ["/rails/log"]

@@ -25,4 +25,4 @@ RUN chmod +x ./opt/start_nginx_rails.sh
 VOLUME ["/var/log/nginx", "/var/log/supervisor"]
 
 EXPOSE 80
-CMD ["./opt/start_nginx_rails.sh"]
+ENTRYPOINT ["./opt/start_nginx_rails.sh"]

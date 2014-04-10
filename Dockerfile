@@ -20,6 +20,7 @@ RUN rm /etc/nginx/sites-enabled/default
 ADD config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD config/nginx.conf /etc/nginx/nginx.conf
 ADD start_nginx_rails.sh /opt/start_nginx_rails.sh
+RUN chmod +x ./opt/start_nginx_rails.sh
 
 VOLUME ["/var/log/nginx", "/var/log/supervisor"]
 

@@ -9,6 +9,7 @@ usage() {
     Configures and starts a rails app behind nginx and passenger
 
     OPTIONS:
+      -h Print this message
       -l=PATH Path to Symlink config files (empty and ignored by default)
       -p Precompile Assets (false by default)
     "
@@ -37,9 +38,14 @@ do
   esac
 done
 
-if [[ -z $CONFIG_APTH ]];
+if [[ -n $CONFIG_PATH ]];
 then
-  ln -sf "$CONFIG_PATH*.yml" /rails/config/
+  if [[ "$CONFIG_PATH" != */ ]]; 
+  then
+    CONFIG_PATH="$CONFIG_PATH/"
+  fi
+
+  ln -sf $CONFIG_PATH*.yml /rails/config/
 fi
 
 if [ "$PRECOMPILE" = true ];
